@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { ContextConsumer } from '../controllers/context';
 
-const Auth = () => {
+const Auth = (props) => {
    const [username, setUsername] = useState('')
    const [password, setPassword] = useState('')
    const [error, setError] = useState('')
@@ -24,7 +24,7 @@ const Auth = () => {
          if (result.error) {
             setError(result.message)
          } else {
-            history.push('/')
+            history.go('/')
          }
       })
    }
