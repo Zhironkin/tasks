@@ -13,10 +13,25 @@ const CreateTask = () => {
    const [error, setError] = useState('');
    const history = useHistory()
 
+   const validateEmail = (value) => {
+      if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(value)) {
+         return true
+      }
+      return false
+   }
+
    const submit = e => {
       e.preventDefault()
 
-      if (!username && !email && !text) return null
+      if (!username && !email && !text) {
+         setError('Необходимо заполнить все поля.')
+         return null
+      }
+
+      if (!validateEmail(email)) {
+         setError('Неправильный email адрес.')
+         return null
+      }
       
       let formData = new FormData()
       formData.set('username', username)
@@ -48,7 +63,7 @@ const CreateTask = () => {
 
    return (
       <div className="create-task">
-         <form onSubmit={submit}>
+         <form>
             <div>
                <label>Имя:</label>
                <input type="text" value={username} disabled={selectTask.username && true} onChange={e => setUsername(e.target.value)} required />
@@ -71,7 +86,7 @@ const CreateTask = () => {
                />
             }
             {error && <span className="error">{error}</span>}
-            <button>{selectTask.id ? "Сохранить" : "Создать задачу"}</button>
+            <button onClick={submit}>{selectTask.id ? "Сохранить" : "Создать задачу"}</button>
          </form>
       </div>
    )
