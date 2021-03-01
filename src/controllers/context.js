@@ -55,6 +55,7 @@ const ContextProvider = (props) => {
 
    const LogOut = () => {
       let username = get_cookie('username')
+      delete_cookie('username')
       delete_cookie(username)
    }
 
@@ -66,7 +67,7 @@ const ContextProvider = (props) => {
                case 'ok':
                   setList({
                      tasks: result.data.message.tasks,
-                     count: parseInt(result.data.message.total_task_count),
+                     count: Math.ceil(parseInt(result.data.message.total_task_count) / 3),
                   })
                   setLoader(false)
                   break;
@@ -108,6 +109,7 @@ const ContextProvider = (props) => {
          let name = data.get('username')
          set_cookie('username', name)
          set_cookie(name, result.token)
+         setIsAuthenticated(true)
          return true
       })
       .catch(error => console.log('error:', error))

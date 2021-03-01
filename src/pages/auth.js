@@ -3,13 +3,13 @@ import { useHistory } from "react-router-dom";
 import { ContextConsumer } from '../controllers/context';
 
 const Auth = (props) => {
+
+   const { LogIn } = useContext(ContextConsumer);
    const [username, setUsername] = useState('')
    const [password, setPassword] = useState('')
    const [error, setError] = useState('')
    const history = useHistory()
-
-   const { LogIn } = useContext(ContextConsumer);
-
+   
    const submit = () => {
       if (!username && !password) {
          setError('Необходимо заполнть все поля.')
@@ -24,7 +24,7 @@ const Auth = (props) => {
          if (result.error) {
             setError(result.message)
          } else {
-            history.go('/')
+            history.push('/')
          }
       })
    }
