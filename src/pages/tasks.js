@@ -6,13 +6,13 @@ import Loader from '../components/loader';
 
 const Tasks = () => {
    const { getTasks, setCurrentPage } = useContext(ContextConsumer)
-   const [page, setStatePage] = useState(1)
+   const [ page, setStatePage ] = useState(1)
 
    const setPage = (number) => {
       setCurrentPage(number + 1)
       setStatePage(number + 1)
    }
-   
+
    useEffect(() => {
       getTasks()
    }, [page])

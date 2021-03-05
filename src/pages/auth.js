@@ -2,15 +2,18 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from "react-router-dom";
 import { ContextConsumer } from '../controllers/context';
 
-const Auth = (props) => {
+const Auth = () => {
 
    const { LogIn } = useContext(ContextConsumer);
-   const [username, setUsername] = useState('')
-   const [password, setPassword] = useState('')
-   const [error, setError] = useState('')
+   const [ username, setUsername ] = useState('')
+   const [ password, setPassword ] = useState('')
+   const [ error, setError ] = useState('')
    const history = useHistory()
    
    const submit = () => {
+
+      setError('')
+
       if (!username && !password) {
          setError('Необходимо заполнть все поля.')
          return null
@@ -38,7 +41,7 @@ const Auth = (props) => {
          <div>
             <label>Пароль:</label>
             <input type="password" onChange={e => setPassword(e.target.value)} />
-            {error && <span>{error}</span>}
+            {error && <span className="error">{error}</span>}
          </div>
          <button onClick={submit}>Вход</button>
       </div>

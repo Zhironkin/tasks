@@ -1,34 +1,29 @@
 import React from 'react';
-import {
-  HashRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-
+import { Route, withRouter } from "react-router-dom";
+import { ContextProvider, ContextConsumer } from './controllers/context';
 import NavBar from './components/navbar';
 import Tasks from './pages/tasks';
 import Auth from './pages/auth';
 import CreateTask from './pages/create-task';
 
-const App = (props) => {
+const App = () => {
 	return (
-		<Router>
-			<NavBar />
-			<div className="myApp">
-				<Switch>
-					<Route exact path="/">
-						<Tasks />
-					</Route>
-					<Route path="/auth">
-						<Auth />
-					</Route>
-					<Route path="/create-task">
-						<CreateTask />
-					</Route>
-				</Switch>
-			</div>
-		</Router>
+		<ContextProvider>
+			<ContextConsumer>
+				{context => (
+					<div>
+						<NavBar />
+						<div className="myApp">
+							<Route exact path="/" component={Tasks} />
+							<Route exact path="/auth" component={Auth} />
+							<Route exact path="/create-task" component={CreateTask} />
+							<Route path="/edit-task/:id" render={() => context.isAuthenticated ? <CreateTask /> : <Auth />} />
+						</div>
+					</div>
+				)}
+			</ContextConsumer>
+		</ContextProvider>
   )
 }
 
-export default App;
+export default withRouter(App);

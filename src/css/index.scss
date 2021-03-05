@@ -104,6 +104,7 @@ body {
     color: $color-black;
     border-radius: 8px;
     padding: 20px;
+    max-width: 400px;
 
     > div, form > div:not(.select) {
       display: flex;
@@ -112,7 +113,6 @@ body {
     }
 
     .select {
-      max-width: 250px;
       font-size: 14px;
       margin-bottom: 1rem;
     }
@@ -122,10 +122,10 @@ body {
       margin-bottom: 5px;
     }
 
-    input, textarea {
+    input:not(input[type="checkbox"]), textarea {
       width: 250px;
-      min-width: 250px;
-      max-width: 250px;
+      min-width: 100%;
+      max-width: 100%;
       max-height: 150px;
       min-height: 34px;
       height: 34px;
@@ -136,25 +136,52 @@ body {
       padding: .5rem;
     }
 
+    .checkbox {
+      label {
+        display: flex;
+        align-items: center;
+      }
+
+      input {
+        margin: 0;
+        width: 20px;
+        height: 20px;
+      }
+
+      span {
+        margin: 0 0 0 .5rem;
+      }
+    }
+
     span {
+      display: block;
       font-size: 14px;
-      color: $color-red;
       margin-top: 5px;
     }
 
     button {
       font-size: 16px;
     }
-  }
 
-  .create-task {
+    span.success {
+      color: $color-green;
+    }
+
     span.error {
-      display: block;
-      margin-bottom: 1rem;
-      margin-top: -1rem;
+      color: $color-red;
     }
   }
 
+  .create-task {
+    width: 100%;
+
+    span.error,
+    span.success {
+      margin-bottom: 1rem;
+      margin-top: -0.5rem;
+    }
+  }
+  
   .card-list {
     background: $color-white;
     color: $color-black;
@@ -191,10 +218,16 @@ body {
         font-size: 14px;
         margin-bottom: .5rem;
         cursor: pointer;
-
-        &:hover {
-          text-decoration: underline;
+        
+        a {
+          color: $color-black;
+          text-decoration: none;
+          
+          &:hover {
+            text-decoration: underline;
+          }
         }
+
       }
 
       > div:first-child, > div:nth-child(2) {

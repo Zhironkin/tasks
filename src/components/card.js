@@ -1,10 +1,9 @@
 import React, { useContext } from 'react';
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ContextConsumer } from '../controllers/context';
 
 const Card = ({ list }) => {
-   const { isAuthenticated, setSelectTask } = useContext(ContextConsumer)
-   const history = useHistory()
+   const { isAuthenticated } = useContext(ContextConsumer)
 
    const taskStatus = status => {
       switch (parseInt(status)) {
@@ -19,17 +18,10 @@ const Card = ({ list }) => {
       }
    }
 
-   const handleClick = item => {
-      setSelectTask({
-         ...item
-      })
-      history.push('/create-task')
-   }
-
    const renderList = () => (list || []).map(item => 
       <div key={item.id} className="card">
          <div>
-            {isAuthenticated && <span className="card-change" onClick={() => handleClick(item)}>[ редактировать ]</span>}
+            {isAuthenticated && <span className="card-change"><Link to={{ pathname: `/edit-task/${item.id}`, state: { task: item } }}>[ редактировать ]</Link></span>}
             <label dangerouslySetInnerHTML={{__html: item.email}}></label>
             <span dangerouslySetInnerHTML={{__html: item.username}}></span>
          </div>

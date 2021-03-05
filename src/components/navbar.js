@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Link, useHistory } from "react-router-dom";
+import { withRouter, Link, useHistory } from "react-router-dom";
 import Select from 'react-select'
 import { ContextConsumer } from '../controllers/context';
 
@@ -10,6 +10,14 @@ const NavBar = () => {
    const logOut = () => {
       LogOut()
       history.go(0)
+   }
+
+   const createTask = () => {
+      if (history.location.pathname === '/create-task') {
+         history.go(0)
+      } else {
+         history.replace('/create-task')
+      }
    }
 
    return (
@@ -25,7 +33,7 @@ const NavBar = () => {
                      isSearchable={false} 
                   />
                </div>
-               <div><Link to="/create-task">+ Добавить новую</Link></div>
+               <div onClick={createTask}>+ Добавить новую</div>
                <div>
                   {context.isAuthenticated ? <div onClick={logOut}>Выход</div> : <Link to="/auth">Вход</Link>}
                </div>
@@ -35,4 +43,4 @@ const NavBar = () => {
    )
 }
 
-export default NavBar;
+export default withRouter(NavBar);

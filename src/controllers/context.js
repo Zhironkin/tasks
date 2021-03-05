@@ -17,13 +17,6 @@ const ContextProvider = (props) => {
       { value: 'status_desc', label: 'По статусу ↑', field: 'status', direction: 'desc' }
    ]
 
-   const status_options = [
-      { value: 0, label: 'Задача не выполнена' },
-      { value: 1, label: 'Задача не выполнена, отредактирована администратором' },
-      { value: 10, label: 'Задача выполнена' },
-      { value: 11, label: 'Задача отредактирована администратором и выполнена' }
-   ]
-
    const [list, setList] = useState([])
    const [error, setError] = useState('')
    const [loader, setLoader] = useState(true)
@@ -31,7 +24,6 @@ const ContextProvider = (props) => {
    const [_sort_field, setSortField] = useState('')
    const [_sort_direction, setSortDirection] = useState('')
    const [isAuthenticated, setIsAuthenticated] = useState(false)
-   const [selectTask, setSelectTask] = useState({})
 
    useEffect(() => {
       let username = get_cookie('username')
@@ -150,7 +142,6 @@ const ContextProvider = (props) => {
       DevName,
       API_URL,
       sort_options,
-      status_options,
       list,
       error,
       loader,
@@ -160,9 +151,7 @@ const ContextProvider = (props) => {
       getTasks,
       CreateTask,
       LogOut,
-      setSelectTask,
       EditTask,
-      selectTask,
       isAuthenticated
    }
 
