@@ -43,7 +43,7 @@ const CreateTask = (props) => {
       formData.set('username', data.username)
       formData.set('email', data.email)
       formData.set('text', data.text)
-      
+
       if (selectTask.id) {
          let username = get_cookie('username')
          let token = get_cookie(username)
@@ -57,7 +57,7 @@ const CreateTask = (props) => {
                history.push({
                   pathname: `/edit-task/${selectTask.id}`,
                   state: {
-                     task: { id: selectTask.id, ...data },
+                     task: { id: selectTask.id, ...data, status },
                      messages: { error: '', success: 'Задача успешно обновлена.' }
                   }
                })
@@ -117,17 +117,17 @@ const CreateTask = (props) => {
                <label>Email:</label>
                <input type="email" name="email" value={data.email} disabled={selectTask.email && true} onChange={handleChange} required />
             </div>
-            <div> 
+            <div>
                <label>Текс:</label>
                <textarea name="text" value={data.text} onChange={handleChange} required ></textarea>
             </div>
-            {selectTask.id && 
+            {selectTask.id &&
                <div className="checkbox">
                   <label>
-                     <input 
-                        type="checkbox" 
-                        checked={status == 10 || status == 11} 
-                        onChange={handleChangeStatus} 
+                     <input
+                        type="checkbox"
+                        checked={status == 10 || status == 11}
+                        onChange={handleChangeStatus}
                      />
                      <span>Выполнено</span>
                   </label>
